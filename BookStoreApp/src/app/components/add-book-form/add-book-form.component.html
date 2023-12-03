@@ -1,0 +1,72 @@
+<div style="width: 80%; margin: auto; padding: 20px;" class="border border-gray-300 rounded-lg">
+    <form class="space-y-4" (ngSubmit)="onSubmit()" [formGroup]="bookForm">
+      <div>
+        <h1 class="text-center font-bold">Add Book</h1>
+        <div style="width: 100%; border: 1px solid black;"></div>
+  
+        <div class="relative z-0 w-full mb-6 group">
+          <input
+            type="text"
+            id="title"
+            formControlName="title"
+            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            placeholder=" "
+          />
+          <label for="title" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 left-6">
+            Title
+          </label>
+          <div *ngIf="bookForm.get('title')?.hasError('required') && bookForm.get('title')?.touched" class="text-red-500 text-xs mt-1">Title is required.</div>
+          <!-- Add other validation messages as needed -->
+        </div>
+  
+        <div class="relative z-0 w-full mb-6 group">
+          <textarea
+            id="description"
+            formControlName="description"
+            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            placeholder=" "
+          ></textarea>
+          <label for="description" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 left-6">
+            Description
+          </label>
+          <div *ngIf="bookForm.get('description')?.hasError('required') && bookForm.get('description')?.touched" class="text-red-500 text-xs mt-1">Description is required.</div>
+        </div>
+  
+        <div class="relative z-0 w-full mb-6 group">
+          <input
+            type="number"
+            id="pageCount"
+            formControlName="pageCount"
+            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            placeholder=" "
+          />
+          <label for="pageCount" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 left-6">
+            Page Count
+          </label>
+          <div *ngIf="bookForm.get('pageCount')?.hasError('required') && bookForm.get('pageCount')?.touched" class="text-red-500 text-xs mt-1">Page Count is required.</div>
+          <div *ngIf="bookForm.get('pageCount')?.hasError('min') && bookForm.get('pageCount')?.touched" class="text-red-500 text-xs mt-1">Page Count must be at least 1.</div>
+        </div>
+  
+        
+  
+        
+  
+        <div class="relative z-0 w-full mb-6 group">
+            <label for="imageUrl" class="peer-focus:font-medium text-sm text-gray-500 dark:text-gray-400 duration-300" style="margin-left: 18px;">Upload Image</label>
+            <input
+            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            id="imageUrl"
+            type="file"
+            formControlName="imageUrl"
+            (change)="onFileSelected($event)"
+          />
+          <div *ngIf="bookForm.get('imageUrl')?.hasError('required') && bookForm.get('imageUrl')?.touched" class="text-red-500 text-xs mt-1">Image URL is required.</div>
+          <div *ngIf="bookForm.get('imageUrl')?.hasError('fileSizeInvalid')" class="text-red-500 text-xs mt-1">File size must be less than 1MB.</div>
+        </div>
+        <!-- Add other form fields as needed -->
+  
+      </div>
+      <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+    </form>
+  </div>
+  

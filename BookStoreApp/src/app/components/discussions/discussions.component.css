@@ -1,0 +1,17 @@
+@media (max-width: 767px) {
+  #left_side {
+    
+    overflow-y: auto;
+    
+    width: 50%; /* Adjust the width as needed */
+    
+    
+    transition: width 0.3s ease; /* Adjust the transition properties as needed */
+  }
+  #right_side
+
+  {
+    position: fixed;
+    z-index: -10;
+  }
+}

@@ -1,0 +1,38 @@
+<div class="container mx-auto my-8" style="width: 90%;">
+    <div class="flex mx-auto" style="justify-content: end; align-items: end; justify-content: space-between;">
+     <h2 class="text-2xl font-semibold mb-4">Reading List</h2>
+     <button class="px-4 py-2 mb-4 bg-red-600 text-white rounded-md mt-4" (click)="back()">Back</button>
+    </div>
+     
+     <div *ngIf="readingListItems==null" class="text-center text-gray-500">
+       Your Reading List is empty.
+       
+     </div>
+   
+     <div *ngFor="let cartItem of readingListItems" class="flex border p-4 mb-4">
+      
+      <div>
+        <img [src]="cartItem.book.image" alt="Product Image" class="w-24 h-24 object-cover mr-4">
+      </div>
+    
+      <!-- Adjusted layout -->
+      <div class="flex-1 ml-4"> <!-- Added ml-4 for left margin -->
+        <div class="flex justify-between items-start">
+          <div>
+            <h3 class="text-lg font-semibold">{{ cartItem.book.title }}</h3>
+            <h3 class="text-gray-500 text-sm">AddedAt: {{ formatDate(cartItem.addedAt) }}</h3>
+          </div>
+    
+          <div class="ml-auto"> <!-- Added ml-auto for right alignment -->
+            <div class="mt-2">
+              <button class="px-2 py-1 bg-red-600 text-white rounded-md" (click)="removeFromReadingList(cartItem.id)">Remove</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+   
+    
+   </div>
+   

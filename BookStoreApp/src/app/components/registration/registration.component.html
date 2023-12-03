@@ -1,0 +1,114 @@
+
+
+  <form style=" border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px;" [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="space-y-6 relative">
+ 
+    <h1 style="font-size: 35px; font-weight: 600; text-align: center; color: #1a63e1;">Registration Form</h1>
+    <div style="width: 100%; border: 1px solid #e2e8f0;"></div>
+    <div class="grid md:grid-cols-2 md:gap-6">
+      <div class="relative z-0 w-full mb-6 group">
+        <input
+          type="text"
+          name="floating_first_name"
+          id="floating_first_name"
+          class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          placeholder=" "
+          formControlName="firstName"
+          />
+          <label for="floating_first_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 left-6">First name</label>
+          <div *ngIf="registrationForm.get('firstName')?.hasError('required') && registrationForm.get('firstName')?.touched" class="text-red-500 text-xs mt-1">First Name is required.</div>
+          <div *ngIf="registrationForm.get('firstName')?.hasError('minlength') && registrationForm.get('firstName')?.touched" class="text-red-500 text-xs mt-1">First Name must be at least 3 characters long.</div>
+        </div>
+        
+        <div class="relative z-0 w-full  group">
+          <input
+          type="text"
+          name="floating_last_name"
+          id="floating_last_name"
+          formControlName="lastName"
+          class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          placeholder=" "
+          />
+          <label for="floating_last_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6
+          left-6">Last name</label>
+          <div *ngIf="registrationForm.get('lastName')?.hasError('required') && registrationForm.get('lastName')?.touched" class="text-red-500 text-xs mt-1">Last Name is required.</div>
+          <div *ngIf="registrationForm.get('lastName')?.hasError('minlength') && registrationForm.get('lastName')?.touched" class="text-red-500 text-xs mt-1">Last Name must be at least 3 characters long.</div>
+        </div>
+      </div>
+
+
+
+
+      <div class="relative z-0 w-full mb-6 group">
+        <input
+          type="email"
+          id="floating_email"
+          formControlName="email"
+          class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          placeholder=" "
+          />
+          <label for="floating_last_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6
+          left-6">Email</label>
+        <div *ngIf="registrationForm.get('email')?.hasError('required') && registrationForm.get('email')?.touched" class="text-red-500 text-xs mt-1">Email is required.</div>
+        <div *ngIf="registrationForm.get('email')?.hasError('email') && registrationForm.get('email')?.touched" class="text-red-500 text-xs mt-1">Invalid email address.</div>
+        <div *ngIf="registrationForm.get('email')?.hasError('emailTaken') && registrationForm.get('email')?.touched" class="text-red-500 text-xs mt-1">This email is already taken.</div>
+      </div>
+
+      <label class="relative inline-flex items-center ml-4 me-5 cursor-pointer">
+        <input type="checkbox" value="" class="sr-only 
+        peer" 
+        formControlName="role"
+        >
+        <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+        
+        </div>
+        <span class="text-sm font-medium text-gray-500 dark:text-gray-100">Are you an author?</span>
+      </label>
+
+    <!-- Password Field -->
+    <div class="relative z-0 w-full mb-6 group">
+      
+      <input
+      type="{{ passwordFieldType }}"
+      name="floating_password"
+      id="floating_password"
+      class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+      placeholder=" "
+      formControlName="password"
+      />
+      <label for="floating_password" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6
+      left-6">Password</label>
+      <div *ngIf="registrationForm.get('password')?.hasError('required') && registrationForm.get('password')?.touched" class="text-red-500 text-xs mt-1">Password is required.</div>
+      <div *ngIf="registrationForm.get('password')?.hasError('minlength') && registrationForm.get('password')?.touched" class="text-red-500 text-xs mt-1">Password must be at least 10 characters long.</div>
+      <div *ngIf="registrationForm.get('password')?.hasError('passwordStrength') && registrationForm.get('password')?.touched" class="text-red-500 text-xs mt-1">Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character.</div>
+      <button type="button" class="text-blue-600 dark:text-blue-500 focus:outline-none" style="margin-left: 20px;" (click)="togglePasswordVisibility()">
+        {{ passwordVisible ? 'Hide Password' : 'Show Password' }}
+      </button>
+    </div>
+    
+    <!-- Password Toggle Button -->
+    
+    <!-- Confirm Password Field -->
+    <div class="relative z-0 w-full mb-6 group">
+      <input
+    type="password"
+    name="repeat_password"
+    id="floating_repeat_password"
+    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+    placeholder=" "
+    formControlName="confirmPassword"
+  />
+  <label for="floating_repeat_password" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6
+  left-6">Confirm password</label>
+  <div *ngIf="registrationForm.get('confirmPassword')?.hasError('required') && registrationForm.get('confirmPassword')?.touched" class="text-red-500 text-xs mt-1">Confirm Password is required.</div>
+  <div *ngIf="registrationForm.get('confirmPassword')?.hasError('passwordMismatch') && registrationForm.get('confirmPassword')?.touched" class="text-red-500 text-xs mt-1">Passwords do not match.</div>
+</div>
+
+  
+    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover-bg-blue-700 dark:focus:ring-blue-800">
+      Submit
+    </button>
+
+    <p class="text-sm font-light text-gray-500 dark:text-gray-400 mt-4">
+      Already have an account? <a routerLink="/login" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login</a>
+    </p>
+  </form>

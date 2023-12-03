@@ -1,0 +1,121 @@
+<!-- discussions.component.html -->
+
+
+
+  
+  <div class="flex p-4 h-screen">
+    <button *ngIf="showSidebar else close" class="relavtive top-4 left-4 z-10 bg-gray-500 text-white p-2 rounded-md " (click)="toggleSidebar()">
+      <span class="text-xl">&larr;</span>
+    </button>
+    <ng-template #close>
+      <button #close class="relavtive top-4 left-4 z-10 bg-gray-500 text-white p-2 rounded-md " (click)="toggleSidebar()">
+        <span class="text-xl">&rarr;</span>
+      </button>
+    </ng-template>
+    
+    <!-- Left side - List of Discussions -->
+    <div id="left_side" class="left-10  p-4 border-r bg-gray-100 overflow-y-auto "[ngClass]="{ 'transition -rotate-180': !showSidebar }" *ngIf="showSidebar">
+      <h2 class="text-2xl font-bold mb-4">Discussions</h2>
+      
+
+<!-- Modal toggle -->
+<button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+  Start Discussion
+</button>
+
+
+
+ <ul *ngIf="discussions.length > 0; else noDiscussions">
+        <li *ngFor="let discussion of discussions" (click)="selectDiscussionById(discussion.id)" class="cursor-pointer hover:bg-gray-200 p-2 mb-2 rounded transition-all duration-300 ease-in-out transform hover:translate-x-2">
+          {{ discussion.title }}
+        </li>
+      </ul>
+      
+      <ng-template #noDiscussions>
+        <p class="text-gray-600">No discussions available.</p>
+      </ng-template>
+    </div>
+    <!-- Main modal -->
+
+  <div id="authentication-modal" tabindex="-1" aria-hidden="true"  class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-md max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Start new discussion
+                </h3>
+                <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <!-- discussion-form.component.html -->
+            <div class="p-4 md:p-5">
+              <form class="space-y-4" (ngSubmit)="onFormSubmit()" #discussionForm="ngForm">
+                  <div>
+                      <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
+                      <input type="text" name="title" id="title" [(ngModel)]="discussionTitle" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Enter discussion title" required>
+                  </div>
+                  <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+              </form>
+            </div>
+
+            
+        </div>
+</div> 
+</div>
+  
+    <!-- Right side - Selected Discussion and Comments -->
+    <div id="right_side" class="flex-1 p-4 bg-white overflow-y-auto">
+      <ng-container *ngIf="selectedDiscussion; else selectDisuccion">
+        <h2 class="text-2xl font-bold mb-4">{{ selectedDiscussion.title }}</h2>
+  
+        <!-- Display Comments -->
+        <div *ngIf="selectedDiscussion !== null else noComments">
+          <div *ngFor="let comment of selectedDiscussion" class="bg-gray-100 p-4 mb-4 rounded">
+            <!-- User Information (Avatar and Name) -->
+            <div class="flex items-center mb-2">
+              <img
+                 
+                alt="User Avatar"
+                class="w-10 h-10 rounded-full mr-2"
+              />
+              <div class="flex justify-between">
+                <p class="font-bold text-gray-800">{{ comment.user.name }}</p>
+                <p class="text-gray-500 text-sm">{{ formatDate(comment.dateTime) }}</p>
+              </div>
+            </div>
+        
+            <!-- Comment Content -->
+            <p class="text-gray-800">{{ comment.content }}</p>
+          </div>
+        </div>
+        
+        <ng-template #noComments>
+          <p>No comments available.</p>
+        </ng-template>
+        
+        
+        <ng-template #noComments>
+          <p class="text-gray-600">No comments added yet.</p>
+        </ng-template>
+  
+        <!-- Add a Comment -->
+        <div class="mt-4">
+          <textarea [(ngModel)]="newComment" class="w-full p-2 border rounded focus:outline-none focus:border-blue-500" placeholder="Add your comment..."></textarea>
+          <button (click)="addComment()" class="bg-blue-500 text-white px-4 py-2 mt-2 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600 transition-all duration-300 ease-in-out">
+            Add Comment
+          </button>
+        </div>
+      </ng-container>
+      <ng-template #selectDisuccion>
+        <p class=" text-xl text-gray-600 text-center p-2 rounded">Select Discussion Please.</p>
+      </ng-template>
+    </div>
+  </div>
+  
